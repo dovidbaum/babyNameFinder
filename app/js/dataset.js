@@ -22,9 +22,11 @@ function main(){
             }
           }
         })
-        console.log(oldFemale);
-        console.log(modernMale);
-        console.log(oldFemale.get('Mary'));
+        // Sorted by name count in descending order
+        var sortedModernFemale = new Map([...modernFemale.entries()].sort((a, b) => b[1] - a[1]));
+        var sortedModernMale = new Map([...modernMale.entries()].sort((a, b) => b[1] - a[1]));
+        var sortedOldFemale = new Map([...oldFemale.entries()].sort((a, b) => b[1] - a[1]));
+        var sortedOldMale = new Map([...oldMale.entries()].sort((a, b) => b[1] - a[1]));
       }
     );
 
