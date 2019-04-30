@@ -28,9 +28,7 @@
     <link href="assets/css/lib/helper.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
 
-    <!-- Database and D3-->
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="../js/dataset.js"></script>
+
 </head>
 
 <body>
@@ -83,12 +81,12 @@
                             </div>
                         </div>
                         <!-- /# Search For Names -->
-                        <div>
+                 <!--       <div>
                             <div class="input-group input-group-rounded">
                                 <input type="text" placeholder="Search a name" name="Search" class="form-control">
                                 <span class="input-group-btn"><button class="btn btn-primary btn-group-right" type="submit"><i class="ti-search"></i></button></span>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- /# Search For Names -->
                     </div>
                     <!-- /# Discover a name -->
@@ -101,10 +99,14 @@
                     </div>
                     <!-- /# Discover a name -->
                 </div>
+                <a class="btn btn-primary" data-toggle="collapse" href="#collapseForm" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    Filter Table
+                </a>
                 <!-- /# Form -->
                 <section id="main-content">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-10">
+                        <div class="collapse" id="collapseForm">
                         <div class="card">
                             <div class="card-title">
                                 <h4>Discover a name</h4>
@@ -147,17 +149,16 @@
                                 </div>
                             </div>
                         </div>
+                        </div>
                     </div>
                 </div>
                 <!-- /# Form -->
                 <!-- /# row -->
-                <section id="main-content">
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="bootstrap-data-table-panel">
                                     <div class="table-responsive">
-                                        <!--todo: Fake Data, will replace based of json file -->
                                         <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                             <thead>
                                                 <tr>
@@ -235,6 +236,9 @@
     <script src="assets/js/lib/data-table/buttons.print.min.js"></script>
     <script src="assets/js/lib/data-table/datatables-init.js"></script>
 
+        <!-- Database and D3-->
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="../js/dataset.js"></script>
 
 
 
