@@ -115,9 +115,9 @@
                             <div class="card-body">
                                 <div class="basic-form">
                                     <form class="form-horizontal">
-                                        <div class="form-group col-sm-4 col-sm-offset-3">
+                                        <div class="form-group col-sm-6 col-sm-offset-3">
                                             <label>Are you looking for a Boy's name or a Girl's name?</label>
-                                            <div class="form-control ">
+                                            <div class="form-control text-center">
                                             <label class="radio-inline">
                                                 <input type="radio" id="bothRadio" checked> <span style="padding: 5px"> Both </span>
                                             </label>
@@ -129,21 +129,43 @@
                                             </label>
                                             </div>
                                         </div>
-                                        <div class="form-group col-sm-4 col-sm-offset-3">
-                                           <span> <label>Must start with </label>
-                                            <input type="text" id="start" class="form-control" placeholder=""> </span>
+                                        <div class="form-group col-sm-6 col-sm-offset-3">
+                                           <span> <label>Must start with the Letter: </label>
+                                            <div class="col-3">
+                                                <input type="text" maxlength="1" id="start" class="form-control" placeholder="">
+                                            </div>
                                         </div>
-                                        <div class="form-group col-sm-4 col-sm-offset-3">
-                                            <label>Can't start with </label>
-                                            <input type="text" id="not-start"class="form-control" placeholder="">
+                                        <div class="form-group col-sm-6 col-sm-offset-3">
+                                            <label>Can't start with the Letter: </label>
+                                            <div class="col-3">
+                                                <input type="text" maxlength="1" id="not-start" class="form-control" placeholder="">
+                                            </div>
                                         </div>
-                                        <div class="form-group col-sm-4 col-sm-offset-3">
-                                            <label>Must end with </label>
-                                            <input type="text" id="end" class="form-control" placeholder="">
+                                        <div class="form-group col-sm-6 col-sm-offset-3">
+                                            <label>Must end with the Letter: </label>
+                                            <div class="col-3">
+                                                <input type="text" maxlength="1"  id="end" class="form-control" placeholder="">
+                                            </div>
                                         </div>
-                                        <div class="form-group col-sm-4 col-sm-offset-3">
-                                            <label>Can't end with </label>
-                                            <input type="text" id="not-end" class="form-control" placeholder="">
+                                        <div class="form-group col-sm-6 col-sm-offset-3">
+                                            <label>Can't end with with the Letter: </label>
+                                            <div class="col-3">
+                                                <input type="text" maxlength="1" id="not-end" class="form-control" placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-6 col-sm-offset-3">
+                                            <label>Are you looking for a Classic name or a Modern name?</label>
+                                            <div class="form-control text-center">
+                                                <label class="radio-inline">
+                                                    <input type="radio"  checked> <span style="padding: 5px"> Both </span>
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio"> <span style="padding: 5px"> Classic </span>
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio"> <span style="padding: 5px"> Modern </span>
+                                                </label>
+                                            </div>
                                         </div>
                                         <button type="submit" class="btn btn-default">Submit</button>
                                     </form>
