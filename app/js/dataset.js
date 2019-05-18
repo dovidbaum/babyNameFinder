@@ -7,7 +7,7 @@ var sortedFemaleCount = new Map(); //all female names summed and sorted by count
 var top50Males = [];  // top 50 male names based on summed counts over all years
 var top50Females = []; // top 50 female names based on summed counts over all years
 
-var margins = {top: 30, right: 20, bottom: 30, left: 40};
+var margins = {top: 20, right: 20, bottom: 30, left: 40};
 
 function main(){
 
@@ -77,12 +77,19 @@ function baseVisual(){
       focus = svg.append("g").attr("transform", "translate(" + margins.left + "," + margins.top + ")");
 
   var xScale = d3.scaleLinear()
-                     .range([0,width]);
+                 .domain([1910,2016])
+                 .rangeRound([0,900]);
   var yScale = d3.scaleLinear()
-                     .range([height,0]);
-  xScale.domain([1910,2016]);
-  yScale.domain([50,100000]);
-  console.log(xScale(2000));
+                 .domain([50,100000])
+                 .rangeRound([550,0]);
+  svg.append('g')
+    .attr('id', 'xAxis')
+    .attr('transform', "translate(40,570)")
+    .call(d3.axisBottom(xScale));
+  svg.append('g')
+    .attr('id', 'yAxis')
+    .attr('transform', "translate(40,20)")
+    .call(d3.axisLeft(yScale));
 
   var line = d3.line()
                .x(function(d) { return xScale(parseInt(d.year)) })

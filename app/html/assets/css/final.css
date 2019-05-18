@@ -1,12 +1,9 @@
-#viz{
-  border: 5px solid black;
-  border-radius: 5px;
-}
-
 .maleLine {
-  color: blue;
+  stroke: blue;
+  fill: none;
 }
 
 .femaleLine {
-  color: pink;
+  stroke: pink;
+  fill: none;
 }
