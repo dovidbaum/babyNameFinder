@@ -1,0 +1,12 @@
+#viz{
+  border: 5px solid black;
+  border-radius: 5px;
+}
+
+.maleLine {
+  color: blue;
+}
+
+.femaleLine {
+  color: pink;
+}
