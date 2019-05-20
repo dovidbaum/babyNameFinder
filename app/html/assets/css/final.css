@@ -1,9 +1,32 @@
 .maleLine {
   stroke: blue;
   fill: none;
+  opacity: 1;
+  stroke: 2px;
 }
 
 .femaleLine {
   stroke: pink;
   fill: none;
+  opacity: 1;
+  stroke: 2px;
+}
+
+.backgroundLine {
+  stroke: gray;
+  fill: none;
+  opacity: 0.3;
+}
+
+.page-title {
+  border-bottom: 1px solid black;
+}
+
+.page-title h3{
+  display: inline-block;
+}
+
+.page-title span {
+  margin-left: 100px;
+  font-size: 18px;
 }
