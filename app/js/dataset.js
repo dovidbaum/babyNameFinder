@@ -12,6 +12,8 @@ var currLine;
 var focus;
 var filters = false;
 
+var mouseLine;
+
 var margins = {top: 20, right: 20, bottom: 30, left: 40};
 
 
@@ -83,6 +85,12 @@ function baseVisual(){
       height = +svg.attr("height") - margins.top - margins.bottom,
       g = svg.append("g").attr("transform", "translate(" + margins.left + "," + margins.top + ")"),
       focus = svg.append("g").attr("transform", "translate(" + margins.left + "," + margins.top + ")");
+
+  svg.append("path")
+        .attr("class", "mouse-line")
+        .style("stroke", "black")
+        .style("stroke-width", "1px")
+        .style("opacity", "0");
 
   var xScale = d3.scaleTime()
                  .domain([new Date(1910,0,1),new Date(2016,0,1)])
@@ -207,21 +215,63 @@ function mouseclick(d,i){
   clicked = !clicked;
   if(clicked){
     currLine = this;
+    d3.select(".mouse-line").style("opacity", "1");
   }else{
     d3.select("#currentName").text("");
     currLine = null;
+    d3.select(".mouse-line").style("opacity", "0");
   }
 }
 
 function mousemove(d,i){
-  if(clicked){
+  var xScale = d3.scaleTime()
+                 .domain([new Date(1910,0,1),new Date(2016,0,1)])
+                 .rangeRound([0,900]);
+  var yScale = d3.scaleLinear()
+                 .domain([50,100000])
+                 .rangeRound([550,0]);
+  var point = d3.mouse(this);
+  var header = d3.select("#currentName");
+  var year = xScale.invert(point[0]).getYear() + 1900;
+  var count;
 
+  d3.select(".mouse-line")
+      .attr("d", function() {
+        var d = "M" + (point[0] + 39) + "," + 570;
+        d += " " + (point[0] + 39) + "," + 0;
+        return d;
+      });
+
+  if(clicked && currLine){
+    var currName = d3.select(currLine).attr("id");
+    if(d3.select(currLine).attr("class") === "maleLine"){
+      var currLineArr = maleNames.get(currName);
+      for(var i = 0; i < currLineArr.length; i++){
+        if(year == currLineArr[i].year){
+           count = currLineArr[i].count;
+        }
+      }
+      if(!count){
+        count = 50;
+      }
+      var legend = currName + "  (Year:" + year + " Instances: " + count + ")";
+      d3.select(currLine).style("stroke","blue").style("opacity","1").style("stroke-width","5px");
+      header.text(legend).style("color","blue");
+    }else{
+      var currLineArr = femaleNames.get(currName);
+      for(var i = 0; i < currLineArr.length; i++){
+        if(year == currLineArr[i].year){
+           count = currLineArr[i].count;
+        }
+      }
+      if(!count){
+        count = 50;
+      }
+      var legend = currName + "  (Year:" + year + " Instances: " + count + ")";
+      d3.select(currLine).style("stroke","pink").style("opacity","1").style("stroke-width","5px");
+      header.text(legend).style("color","pink");
+    }
   }else{
 
   }
-}
-
-function findInstances(arr,target){
-
-  return null;
 }
