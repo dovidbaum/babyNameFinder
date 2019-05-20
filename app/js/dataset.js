@@ -7,7 +7,13 @@ var sortedFemaleCount = new Map(); //all female names summed and sorted by count
 var top50Males = [];  // top 50 male names based on summed counts over all years
 var top50Females = []; // top 50 female names based on summed counts over all years
 
+var clicked = false;
+var currLine;
+var focus;
+var filters = false;
+
 var margins = {top: 20, right: 20, bottom: 30, left: 40};
+
 
 function main(){
 
@@ -66,7 +72,9 @@ function countUp(){
   }
 
   // Creating base visual with top50 list
-  baseVisual();
+  if(filters === false){
+    baseVisual();
+  }
 }
 
 function baseVisual(){
@@ -76,8 +84,8 @@ function baseVisual(){
       g = svg.append("g").attr("transform", "translate(" + margins.left + "," + margins.top + ")"),
       focus = svg.append("g").attr("transform", "translate(" + margins.left + "," + margins.top + ")");
 
-  var xScale = d3.scaleLinear()
-                 .domain([1910,2016])
+  var xScale = d3.scaleTime()
+                 .domain([new Date(1910,0,1),new Date(2016,0,1)])
                  .rangeRound([0,900]);
   var yScale = d3.scaleLinear()
                  .domain([50,100000])
@@ -92,21 +100,128 @@ function baseVisual(){
     .call(d3.axisLeft(yScale));
 
   var line = d3.line()
-               .x(function(d) { return xScale(parseInt(d.year)) })
+               .x(function(d) { return xScale(new Date(parseInt(d.year),0,1))})
                .y(function(d) { return yScale(parseInt(d.count)); });
-
-  for(var i = 0;i < 50; i++){
+  focus = svg.append("g");
+  var mPath;
+  var fPath;
+  for(var i = 0;i < 25; i++){
     var currM = top50Males[i];
     var currF = top50Females[i];
     var mData = maleNames.get(currM);
     var fData = femaleNames.get(currF);
-    g.append("path")
+    mPath = g.append("path")
       .datum(mData)
       .attr("class", "maleLine")
-      .attr("d", line);
-    g.append("path")
+      .attr("id",currM)
+      .attr("d", line)
+      .on("mouseover",mouseover)
+      .on("mouseout",mouseout)
+      .on("click",mouseclick)
+      .on("mousemove",mousemove);
+    fPath = g.append("path")
       .datum(fData)
       .attr("class", "femaleLine")
-      .attr("d", line);
+      .attr("id",currF)
+      .attr("d", line)
+      .on("mouseover",mouseover)
+      .on("mouseout",mouseout)
+      .on("click",mouseclick)
+      .on("mousemove",mousemove);
   }
+}
+
+function mouseover(d,i){
+  var xScale = d3.scaleTime()
+                 .domain([new Date(1910,0,1),new Date(2016,0,1)])
+                 .rangeRound([0,900]);
+  var yScale = d3.scaleLinear()
+                 .domain([50,100000])
+                 .rangeRound([550,0]);
+  var name = d3.select(this).attr("id");
+  var point = d3.mouse(this);
+  var header = d3.select("#currentName");
+  var year = xScale.invert(point[0]).getYear() + 1900;
+  var count;
+
+  d3.selectAll(".maleLine").style("stroke","gray").style("opacity","0.3").style("stroke-width","1px");
+  d3.selectAll(".femaleLine").style("stroke","gray").style("opacity","0.3").style("stroke-width","1px");
+  if(currLine){
+    var currName = d3.select(currLine).attr("id");
+    if(d3.select(currLine).attr("class") === "maleLine"){
+      var currLineArr = maleNames.get(currName);
+      for(var i = 0; i < currLineArr.length; i++){
+        if(year == currLineArr[i].year){
+           count = currLineArr[i].count;
+        }
+      }
+      if(!count){
+        count = 50;
+      }
+      var legend = currName + "  (Year:" + year + " Instances: " + count + ")";
+      d3.select(currLine).style("stroke","blue").style("opacity","1").style("stroke-width","5px");
+      header.text(legend).style("color","blue");
+    }else{
+      var currLineArr = femaleNames.get(currName);
+      for(var i = 0; i < currLineArr.length; i++){
+        if(year == currLineArr[i].year){
+           count = currLineArr[i].count;
+        }
+      }
+      if(!count){
+        count = 50;
+      }
+      var legend = currName + "  (Year:" + year + " Instances: " + count + ")";
+      d3.select(currLine).style("stroke","pink").style("opacity","1").style("stroke-width","5px");
+      header.text(legend).style("color","pink");
+    }
+  }else{
+    for(var i = 0; i < d.length; i++){
+      if(year == d[i].year){
+         count = d[i].count;
+      }
+    }
+    if(!count){
+      count = 50;
+    }
+    var legend = name + "  (Year:" + year + " Instances: " + count + ")";
+    if(d3.select(this).attr("class") === "maleLine"){
+      d3.select(this).style("stroke","blue").style("opacity","1").style("stroke-width","5px");
+      header.text(legend).style("color","blue");
+    }else{
+      d3.select(this).style("stroke","pink").style("opacity","1").style("stroke-width","5px");
+      header.text(legend).style("color","pink");
+    }
+  }
+}
+
+function mouseout(d,i){
+  if(!clicked){
+    d3.select("#currentName").text("");
+    d3.selectAll(".maleLine").style("stroke","blue").style("opacity","1").style("stroke-width","2px");
+    d3.selectAll(".femaleLine").style("stroke","pink").style("opacity","1").style("stroke-width","2px");
+  }
+}
+
+function mouseclick(d,i){
+  clicked = !clicked;
+  if(clicked){
+    currLine = this;
+  }else{
+    d3.select("#currentName").text("");
+    currLine = null;
+  }
+}
+
+function mousemove(d,i){
+  if(clicked){
+
+  }else{
+
+  }
+}
+
+function findInstances(arr,target){
+
+  return null;
 }
